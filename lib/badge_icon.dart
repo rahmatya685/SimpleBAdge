@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 
-
 class BadeIcon extends StatelessWidget {
 //region ---------Fields-----------
+  final Widget child;
+  final double badePadding;
+  final Color badgeColor;
+  final Color borderColor;
+  final double borderWidth;
+
+  const BadeIcon({Key key, this.child, this.badePadding, this.badgeColor, this.borderColor, this.borderWidth})
+      : assert(child != null),
+        super(key: key);
+
   //endregion
   //region ---------Methods-----------
 
@@ -13,22 +22,29 @@ class BadeIcon extends StatelessWidget {
   //region ---------Override-----------
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(2),
-      child: Text("256",style: TextStyle(color: Colors.white,fontSize: 12),),
-      decoration: BoxDecoration(
-        boxShadow: [
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          padding: EdgeInsets.all(badePadding),
+          child: SizedBox(
+            child: child,
+          ),
+          decoration: BoxDecoration(
+            boxShadow: [
 //          BoxShadow(
 //            color: Colors.grey,
 //            spreadRadius: 3,
 //            blurRadius: 3,
 //            offset: Offset.fromDirection(1,-2)
 //          )
-        ],
-        color: Colors.pink,
-        borderRadius: BorderRadius.all(Radius.circular(24))
-      ),
+            ],
+            color: badgeColor,
+            shape: BoxShape.circle,
+            border:borderColor != null ? Border.all(color: borderColor,width:borderWidth): null
+          ),
+        );
+      },
     );
   }
-    //endregion
+//endregion
 }
